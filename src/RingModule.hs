@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, FlexibleInstances, FunctionalDependencies, GADTs #-}
+{-# LANGUAGE FlexibleInstances, FunctionalDependencies #-}
 module RingModule where
 
 class Eq a => Ring a where
@@ -37,23 +37,3 @@ instance Ring r => Module (FreeModule r) r where
     FreeModule (add a1 a2) (add b1 b2)
   smul s (FreeModule a b) = 
     FreeModule (mult s a) (mult s b)
-
-data ChainComplex r where
-  ChainComplex ::
-    { moduleN   :: FreeModule r
-    , moduleNm1 :: FreeModule r
-    , diff      :: FreeModule r -> FreeModule r
-    } -> ChainComplex r
-
-z2Resolution :: ChainComplex Z2
-z2Resolution = ChainComplex
-  { moduleN = FreeModule (Z2 1) (Z2 1)
-  , moduleNm1 = FreeModule (Z2 1) (Z2 1)
-  , diff = \(FreeModule a b) -> FreeModule (add a a) (add b b)
-  }
-
-verifyComplex :: Ring r => ChainComplex r -> Bool
-verifyComplex cc = all isZero [diff cc (diff cc x) | x <- basis]
-  where
-    basis = [FreeModule addId addId, FreeModule addId multId]
-    isZero (FreeModule a b) = a == addId && b == addId

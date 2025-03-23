@@ -3,10 +3,12 @@ module Main where
 
 import Test.HUnit
 import RingModule
+import ChainComplex
+import Hom
 
 main :: IO ()
 main = do
-  otter <- runTestTT $ TestList [testRing, testModule, testChainComplex]
+  otter <- runTestTT $ TestList [testRing, testModule, testChainComplex, testHomComplex]
   return ()
 
 testRing :: Test
@@ -26,3 +28,9 @@ testChainComplex :: Test
 testChainComplex = TestList [
   "d^2 = 0" ~: verifyComplex z2Resolution ~?= True
   ]
+
+testHomComplex :: Test
+testHomComplex = TestCase $ do
+  let complex :: CochainComplex (HomModule Z2 Z2Module) Z2
+      complex = homComplex z2Resolution
+  assertBool "delta^2 = 0" (verifyCochainComplex complex)
