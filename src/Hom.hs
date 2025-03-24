@@ -12,6 +12,7 @@ instance (Ring r, Module n r) => Module (HomModule r n) r where
     HomModule (addM x1 x2) (addM y1 y2)
   smul s (HomModule x y) =
     HomModule (smul s x) (smul s y)
+  moduleElements = [HomModule a b | a <- moduleElements, b <- moduleElements]
 
 data CochainComplex m r where
   CochainComplex ::
@@ -46,3 +47,11 @@ verifyCochainComplex cc = all isZero [coboundary cc (coboundary cc x) | x <- bas
   where
     basis = [zero, smul multId zero]
     isZero x = x == zero
+
+ext :: (Module m r, Eq m) => CochainComplex m r -> Int -> [m]
+ext cc n
+  | n == 0    = [x | x <- moduleElements, coboundary cc x == zero]
+  | n == 1    = [x | x <- moduleElements, x `notElem` image]
+  | otherwise = []
+  where
+    image = [coboundary cc y | y <- moduleElements] 

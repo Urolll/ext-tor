@@ -8,7 +8,7 @@ import Hom
 
 main :: IO ()
 main = do
-  otter <- runTestTT $ TestList [testRing, testModule, testChainComplex, testHomComplex]
+  otter <- runTestTT $ TestList [testRing, testModule, testChainComplex, testHomComplex, testExt]
   return ()
 
 testRing :: Test
@@ -34,3 +34,20 @@ testHomComplex = TestCase $ do
   let complex :: CochainComplex (HomModule Z2 Z2Module) Z2
       complex = homComplex z2Resolution
   assertBool "delta^2 = 0" (verifyCochainComplex complex)
+
+testExt :: Test
+testExt = TestCase $ do
+  let complex :: CochainComplex (HomModule Z2 Z2Module) Z2
+      complex = homComplex z2Resolution
+      ext0 = ext complex 0
+      ext1 = ext complex 1
+  
+  assertEqual "Ext^0 should have 4 elements" 4 (length ext0)
+  
+  assertEqual "Ext^1 should be trivial" 0 (length ext1)
+  
+  assertBool "Identity morphism present" 
+    (HomModule (Z2Module (Z2 1)) (Z2Module (Z2 1)) `elem` ext0)
+  assertBool "Zero morphism present"
+    (HomModule (Z2Module (Z2 0)) (Z2Module (Z2 0)) `elem` ext0)
+
