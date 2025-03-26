@@ -82,7 +82,7 @@ common common-options
 library
   import: common-options
   hs-source-dirs:      src
-  exposed-modules:     RingModule, ChainComplex, Hom
+  exposed-modules:     RingModule, ChainComplex, Hom, ExtTor
   build-depends:       base >=4.14
   default-extensions: FlexibleInstances FunctionalDependencies
 

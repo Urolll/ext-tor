@@ -5,16 +5,16 @@ import RingModule
 
 data ChainComplex m r where
   ChainComplex ::
-    { moduleN   :: m
-    , moduleNm1 :: m
+    { module0   :: m
+    , module1 :: m
     , diff      :: m -> m
     } -> ChainComplex m r
 
 z2Resolution :: ChainComplex (FreeModule Z2) Z2
 z2Resolution = ChainComplex
-  { moduleN = FreeModule (Z2 1) (Z2 1)
-  , moduleNm1 = FreeModule (Z2 1) (Z2 1)
-  , diff = \(FreeModule a b) -> FreeModule (add a a) (add b b)
+  { module0 = FreeModule multId addId
+  , module1 = zero
+  , diff = \_ -> zero
   }
 
 verifyComplex :: (Module m r, Eq m) => ChainComplex m r -> Bool

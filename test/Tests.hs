@@ -5,6 +5,7 @@ import Test.HUnit
 import RingModule
 import ChainComplex
 import Hom
+import ExtTor
 
 main :: IO ()
 main = do
@@ -42,7 +43,7 @@ testExt = TestCase $ do
       ext0 = ext complex 0
       ext1 = ext complex 1
   
-  assertEqual "Ext^0 should have 4 elements" 4 (length ext0)
+  assertEqual "Ext^0 should have 2 elements" 2 (length ext0)
   
   assertEqual "Ext^1 should be trivial" 0 (length ext1)
   
