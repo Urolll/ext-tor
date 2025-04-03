@@ -1,24 +1,29 @@
-{-# LANGUAGE GADTs #-}
+{-# LANGUAGE GADTs, ScopedTypeVariables, TypeApplications #-}
 module ChainComplex where
 
 import RingModule
 
 data ChainComplex m r where
-  ChainComplex ::
-    { module0   :: m
-    , module1 :: m
-    , diff      :: m -> m
+  ChainComplex :: 
+    { modules :: [m]
+    , differentials :: [m -> m]
     } -> ChainComplex m r
 
-z2Resolution :: ChainComplex (FreeModule Z2) Z2
-z2Resolution = ChainComplex
-  { module0 = FreeModule multId addId
-  , module1 = zero
-  , diff = \_ -> zero
-  }
-
-verifyComplex :: (Module m r, Eq m) => ChainComplex m r -> Bool
-verifyComplex cc = all isZero [diff cc (diff cc x) | x <- basis]
+verifyComplex :: forall m r. (Module m r, Eq m) => ChainComplex m r -> Bool
+verifyComplex (ChainComplex mods diffs) =
+  all (\(d1, d2) -> all (\x -> d1 (d2 x) == zero @m @r) (elements (head mods)))
+  (zip diffs (tail diffs))
   where
-    basis = [zero, smul multId zero]
-    isZero x = x == zero
+    elements :: m -> [m]
+    elements _ = 
+      case zero @m @r of
+        Z2Module _ -> [Z2Module (Z2 0), Z2Module (Z2 1)]
+        FreeModule _ -> [FreeModule [(0, multId @r)]]
+        _ -> error "Unsupported module type"
+
+z2Resolution :: ChainComplex Z2Module Z2
+z2Resolution = ChainComplex
+  [ Z2Module (Z2 0)
+  , Z2Module (Z2 0)
+  ]
+  [\_ -> zero @Z2Module @Z2]
