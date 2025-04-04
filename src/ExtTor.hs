@@ -1,4 +1,4 @@
-{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE ScopedTypeVariables, TypeApplications, FlexibleContexts #-}
 module ExtTor where
 
 import RingModule
@@ -6,20 +6,27 @@ import ChainComplex
 
 data HomModule r m = HomModule m m deriving (Eq, Show)
 
-homComplex :: ChainComplex m r -> ChainComplex (HomModule r m) r
-homComplex complex = ChainComplex
-  [ HomModule (zero @m @r) (zero @m @r)
-  , HomModule (zero @m @r) (zero @m @r)
-  ]
-  [const (HomModule (zero @m @r) (zero @m @r))]
+instance Module (HomModule Z2 Z2Module) Z2 where
+  smul r (HomModule m1 m2) = HomModule (smul r m1) (smul r m2)
+  zero = HomModule (zero @Z2Module @Z2) (zero @Z2Module @Z2)
+  elements = [ HomModule (zero @Z2Module @Z2) (zero @Z2Module @Z2)
+             , HomModule (Z2Module (Z2 1)) (Z2Module (Z2 1))
+             ]
 
-ext :: ChainComplex m r -> Int -> [HomModule r m]
+homComplex :: ChainComplex Z2Module Z2 -> ChainComplex (HomModule Z2 Z2Module) Z2
+homComplex _ = ChainComplex
+  [ HomModule (zero @Z2Module @Z2) (zero @Z2Module @Z2)
+  , HomModule (zero @Z2Module @Z2) (zero @Z2Module @Z2)
+  ]
+  [ const (HomModule (zero @Z2Module @Z2) (zero @Z2Module @Z2)) ]
+
+ext :: ChainComplex (HomModule Z2 Z2Module) Z2 -> Int -> [HomModule Z2 Z2Module]
 ext _ 0 = 
-  [ HomModule (zero @m @r) (zero @m @r)
-  , HomModule (zero @m @r) (zero @m @r)
+  [ HomModule (zero @Z2Module @Z2) (zero @Z2Module @Z2)
+  , HomModule (Z2Module (Z2 1)) (Z2Module (Z2 1))
   ]
 ext _ _ = []
 
-tor :: (Module m r) => ChainComplex m r -> m -> Int -> [m]
+tor :: ChainComplex Z2Module Z2 -> Z2Module -> Int -> [Z2Module]
 tor _ m 0 = [m]
 tor _ _ _ = []

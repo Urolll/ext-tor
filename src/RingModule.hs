@@ -20,18 +20,21 @@ instance Ring Z2 where
 class (Ring r) => Module m r where
   smul :: r -> m -> m
   zero :: m
+  elements :: [m]
 
 newtype FreeModule r = FreeModule [(Int, r)] deriving (Eq, Show)
 
 instance (Ring r) => Module (FreeModule r) r where
   smul r (FreeModule xs) = FreeModule [(i, r `mult` x) | (i, x) <- xs]
   zero = FreeModule []
+  elements = [FreeModule [], FreeModule [(0, multId)]]
 
 newtype Z2Module = Z2Module Z2 deriving (Eq, Show)
 
 instance Module Z2Module Z2 where
   smul r (Z2Module x) = Z2Module (r `mult` x)
   zero = Z2Module addId
+  elements = [Z2Module (Z2 0), Z2Module (Z2 1)]
 
 z2Module :: Z2Module
 z2Module = Z2Module (Z2 1)
