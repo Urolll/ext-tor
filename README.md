@@ -4,7 +4,8 @@
 
 ### Definition (left R-module)
 
-Let $R$ be a ring with multiplicative identity $1_R$. A *left R-module* $M$ is an abelian group $(M, +)$ along with an operator $\circ : R \times M \to M $ such that for all $r, s \in R$ and for all $m, n \in M$, the following properties hold:
+Let $R$ be a ring with multiplicative identity $1_R$. A *left R-module* $M$ is an abelian group $(M, +)$ along with an operator
+$\circ : R \times M \to M$ such that for all $r, s \in R$ and for all $m, n \in M$, the following properties hold:
 
 $$ 
 r \circ (m + n) = r \circ m + r \circ n \quad (\text{in } M) 
@@ -152,15 +153,15 @@ The symbol $\mathbf{Set}$ denotes the category of sets.
 
 A *contravariant Hom functor* denoted:
 
-$$ 
+$$
 \text{Hom}(-, A): \mathcal{C} \to \mathbf{Set} 
-$$ 
+$$
 
 is a functor where each object $B \in \mathcal{C}$ is sent to the Hom set $\text{Hom}_{\mathcal{C}}(B, A)$ and each morphism $f: B \to C$ is sent to the function
 
-$$ 
-\text{Hom}(f, A): \text{Hom}_{\mathcal{C}}(C, A) \to \text{Hom}_{\mathcal{C}}(B, A) 
-$$ 
+$$
+\text{Hom}(f, A):\text{Hom}_{\mathcal{C}}(C, A) \to \text{Hom}_{\mathcal{C}}(B, A)
+$$
 
 defined by $\psi \mapsto \psi \circ f$ for all $\psi \in \text{Hom}_{\mathcal{C}}(C, A)$.
 
@@ -326,9 +327,9 @@ $$
 
 is a projective resolution of $M$, then the Ext groups are defined as:
 
-$$ 
-\text{Ext}_R^n(M, N) := H^n(\text{Hom}_R(P_\bullet, N)) 
-$$ 
+$$
+\text{Ext}_R^n(M, N) := H^n(\text{Hom}_R(P_\bullet, N))
+$$
 
 This functor measures the extent to which the Hom functor fails to be exact.
 
@@ -342,8 +343,8 @@ $$
 
 is a projective resolution of $M$, then the Tor groups are defined as:
 
-$$ 
-\text{Tor}_n^R(M, N) := H_n(P_\bullet \otimes_R N) 
-$$ 
+$$
+\text{Tor}_n^R(M, N) := H_n(P_\bullet \otimes_R N)
+$$
 
 This functor measures the failure of the tensor product to be exact.
