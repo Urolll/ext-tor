@@ -5,10 +5,7 @@
 ### Definition (left R-module)
 
 Let $R$ be a ring with multiplicative identity $1_R$. A *left R-module* $M$ is an abelian group $(M, +)$ along with an operator 
-$$
-\circ : R \times M \to M
-$$ 
-such that for all $r, s \in R$ and for all $m, n \in M$, the following properties hold:
+$\circ : R \times M \to M$ such that for all $r, s \in R$ and for all $m, n \in M$, the following properties hold:
 
 $$
 r \circ (m + n) = r \circ m + r \circ n \quad (\text{in } M)
@@ -74,6 +71,7 @@ $$
 $$
 
 where $\partial_{n-1} \circ \partial_{n} = 0$ and 
+
 $$
 \text{im}(\partial_{n+1}) \subseteq \text{ker}(\partial_{n}).
 $$
