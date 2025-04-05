@@ -141,9 +141,7 @@ $$
 
 is a functor where each object $B \in \mathcal{C}$ is sent to the Hom set $\text{Hom}_{\mathcal{C}}(A, B)$ and each morphism $f: B \to C$ is sent to the function
 
-$$ 
-\text{Hom}(A, f): \text{Hom}_{\mathcal{C}}(A, B) \to \text{Hom}_{\mathcal{C}}(A, C) 
-$$ 
+$$\text{Hom}(A, f): \text{Hom}_{\mathcal{C}}(A, B) \to \text{Hom}_{\mathcal{C}}(A, C)$$ 
 
 defined by $\psi \mapsto f \circ \psi$ for all $\psi \in \text{Hom}_{\mathcal{C}}(A, B)$.
 
@@ -159,9 +157,7 @@ $$
 
 is a functor where each object $B \in \mathcal{C}$ is sent to the Hom set $\text{Hom}_{\mathcal{C}}(B, A)$ and each morphism $f: B \to C$ is sent to the function
 
-$$
-\text{Hom}(f, A):\text{Hom}_{\mathcal{C}}(C, A) \to \text{Hom}_{\mathcal{C}}(B, A)
-$$
+$$\text{Hom}(f, A):\text{Hom}_{\mathcal{C}}(C, A) \to \text{Hom}_{\mathcal{C}}(B, A)$$
 
 defined by $\psi \mapsto \psi \circ f$ for all $\psi \in \text{Hom}_{\mathcal{C}}(C, A)$.
 
@@ -327,9 +323,7 @@ $$
 
 is a projective resolution of $M$, then the Ext groups are defined as:
 
-$$
-\text{Ext}_R^n(M, N) := H^n(\text{Hom}_R(P_\bullet, N))
-$$
+$$\text{Ext}_R^n(M, N) := H^n(\text{Hom}_R(P_\bullet, N))$$
 
 This functor measures the extent to which the Hom functor fails to be exact.
 
@@ -343,8 +337,6 @@ $$
 
 is a projective resolution of $M$, then the Tor groups are defined as:
 
-$$
-\text{Tor}_n^R(M, N) := H_n(P_\bullet \otimes_R N)
-$$
+$$\text{Tor}_n^R(M, N) := H_n(P_\bullet \otimes_R N)$$
 
 This functor measures the failure of the tensor product to be exact.
